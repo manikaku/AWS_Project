@@ -1,0 +1,110 @@
+
+
+===============================
+
+
+Project-1 : 
+
+if you dont have custom vpc as we discussed, create one. (8 Subnets, 2 Pub/web, 2 app/private, 2 db/private, 2 lambda)
+
+launch a Windows JUMP Server in your custom VPC public subnet and use this to connect to Private Subnet resources.
+
+launch a NAT Instance, as we need to install packages in our private subnet ec2 instance.
+
+1. Launch an ec2 instance (Launch Amazon Linux 2) for web server in CustomVPC APP private Subnet
+2. Launch rds cluster in CustomVPC DB private Subnet
+3. Configure ec2 instance to connect to rds (Take care about the security groups).
+
+Connect to APP Server.. 
+
+yum install httpd -y
+service httpd start
+chkconfig httpd on
+
+
+Install mysql client
+
+==> sudo yum install -y mysql
+
+Export mysql endpoint with below command.
+export MYSQL_HOST=<your-endpoint>
+
+export MYSQL_HOST=demoname.cfpgnjehw330.ap-south-1.rds.amazonaws.com
+
+###export MYSQL_HOST=project.cegsujor6xa6.ap-south-1.rds.amazonaws.com
+
+
+--
+Connect to mysql to create a db user
+
+mysql -h demoname.cfpgnjehw330.ap-south-1.rds.amazonaws.com -P 3306 -u dbadmin -p
+
+###mysql -h project.cegsujor6xa6.ap-south-1.rds.amazonaws.com -P 3306 -u dbadmin -p
+
+
+--
+
+CREATE DATABASE mywebapp;
+
+CREATE TABLE mywebapp.customers (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE USER 'webappuser' IDENTIFIED BY 'mani1234';
+GRANT ALL PRIVILEGES ON mywebapp.* TO webappuser;
+FLUSH PRIVILEGES;
+Exit
+
+--
+Install required dependencies:
+
+sudo amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2
+
+service httpd restartc
+
+--
+
+cd /var/www/html/
+
+'vim info.php' and write below code/command to "info.php" file, save and close
+
+<?php phpinfo(); ?>
+
+Open browser in your jump server and enter "APP-Server-INSTANCE-IP/info.php", this should display all php config information.
+
+--
+
+Now create an "index.html" below shared file/ below code.
+
+Refer the shared "index.html" and copy content and paste it here. 
+
+
+----
+
+Also, create another file name "submit.php" and paste the below content.
+
+Refer the shared "index.html" and copy content and paste it here. 
+
+** Replace 'rds-hostname', 'username', 'password', 'database'.
+
+---------
+
+
+Now create an Application Load Balancer in your custom VPC Public SUbnets and add your private APP Server to this load balancer's target group.
+
+Now access http://<your-elb-dns>/ , Fill the required information and submit. Data should store in mysql mywebapp.customer database.
+
+connect to RDS Database and execute below sql query to view all information you submitted from the webpage you created.
+
+
+mysql -h wordpress.cfpgnjehw330.ap-south-1.rds.amazonaws.com -P 3306 -u admin -p
+
+mysql -h project.cegsujor6xa6.ap-south-1.rds.amazonaws.com -P 3306 -u admin -p
+
+SELECT * from mywebapp.customers;
+
+
