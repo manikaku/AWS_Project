@@ -108,28 +108,5 @@ mysql -h project.cegsujor6xa6.ap-south-1.rds.amazonaws.com -P 3306 -u admin -p
 SELECT * from mywebapp.customers;
 
 
-As a fresher, it's important to showcase your enthusiasm and eagerness to learn while also highlighting any relevant skills or experience you may have. Here is a sample email you can use when sending your resume or CV to a potential employer:
 
-
-Subject: [Your Name] - Application for [Position]
-
-
-Dear [Hiring Manager],
-
-
-I am writing to express my interest in the [Position] role at [Company Name]. As a recent graduate with a degree in [Your Field of Study], I am eager to begin my career and am excited about the opportunity to work with a company as reputable as [Company Name].
-
-
-While I may not have extensive experience in the field, I am a quick learner and have developed a strong set of skills through my studies and internships. I am confident that my eagerness to learn and strong work ethic will make me an asset to your team.
-
-
-Attached please find my resume and cover letter for your review. I would appreciate the opportunity to discuss my qualifications further and learn more about the position.
-
-
-Thank you for your time and consideration.
-
-
-Sincerely,
-
-[Your Name]
 
