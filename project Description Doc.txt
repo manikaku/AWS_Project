@@ -1,30 +1,30 @@
 
-
+Project Highlight: Secure RDS Integration with AWS Instances
 ===============================
 
 
 Project-1 : 
 
-if you dont have custom vpc as we discussed, create one. (8 Subnets, 2 Pub/web, 2 app/private, 2 db/private, 2 lambda)
+--> if you dont have custom vpc as we discussed, create one. (8 Subnets, 2 Pub/web, 2 app/private, 2 db/private, 2 lambda)
 
-launch a Windows JUMP Server in your custom VPC public subnet and use this to connect to Private Subnet resources.
+--> launch a Windows JUMP Server in your custom VPC public subnet and use this to connect to Private Subnet resources.
 
-launch a NAT Instance, as we need to install packages in our private subnet ec2 instance.
+--> launch a NAT Instance, as we need to install packages in our private subnet ec2 instance.
 
 1. Launch an ec2 instance (Launch Amazon Linux 2) for web server in CustomVPC APP private Subnet
 2. Launch rds cluster in CustomVPC DB private Subnet
 3. Configure ec2 instance to connect to rds (Take care about the security groups).
 
-Connect to APP Server.. 
+--> Connect to APP Server.. 
 
 yum install httpd -y
 service httpd start
 chkconfig httpd on
 
 
-Install mysql client
+--> Install mysql client
 
-==> sudo yum install -y mysql
+sudo yum install -y mysql
 
 Export mysql endpoint with below command.
 export MYSQL_HOST=<your-endpoint>
@@ -35,7 +35,7 @@ export MYSQL_HOST=demoname.cfpgnjehw330.ap-south-1.rds.amazonaws.com
 
 
 --
-Connect to mysql to create a db user
+--> Connect to mysql to create a db user
 
 mysql -h demoname.cfpgnjehw330.ap-south-1.rds.amazonaws.com -P 3306 -u dbadmin -p
 
@@ -44,7 +44,7 @@ mysql -h demoname.cfpgnjehw330.ap-south-1.rds.amazonaws.com -P 3306 -u dbadmin -
 
 --
 
-CREATE DATABASE mywebapp;
+--> CREATE DATABASE mywebapp;
 
 CREATE TABLE mywebapp.customers (
     id INT(11) NOT NULL AUTO_INCREMENT,
@@ -60,7 +60,7 @@ FLUSH PRIVILEGES;
 Exit
 
 --
-Install required dependencies:
+--> Install required dependencies:
 
 sudo amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2
 
@@ -85,7 +85,7 @@ Refer the shared "index.html" and copy content and paste it here.
 
 ----
 
-Also, create another file name "submit.php" and paste the below content.
+--> Also, create another file name "submit.php" and paste the below content.
 
 Refer the shared "index.html" and copy content and paste it here. 
 
